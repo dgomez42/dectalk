@@ -707,7 +707,7 @@ const short                   betty[SPDEF] =
 	4,								   /* SM (smoothness in %, actually spectral tilt offset) */
 	35,								   /* AS (assertiveness, degree of final f0 fall in % */
 	208,							   /* AP (Average pitch in Hz) */
-	240,							   /* PR (pitch range in percent of Paul's range) */
+	140,							   /* PR (pitch range in percent of Paul's range) */
 	0,								   /* BR (breathiness in dB) */
 	40,								   /* RI (Richness in %, actually nopen is 100-RI % of T0) */
 	0,								   /* NF (additional fixed number of samples in nopen) */
@@ -726,7 +726,7 @@ const short                   betty[SPDEF] =
 	69,								   /* G1 (gain of input to cascade 5th formant in dB) */
 	67,								   /* G2 (gain of input to cascade 4th formant in dB) */
 	52,								   /* G3 (gain of input to cascade 3rd formant in dB) */
-	60,								   /* G4 (gain of input to cascade 2nd formant in dB) */
+	64,								   /* G4 (gain of input to cascade 2nd formant in dB) */
 	75,								   /* LO (Loudness, gain input to cascade 1st formant in dB) */
 	75,								   /* FT (f0-dependent spectral tilt in % of max) */
 	0,								   /* BF (baseline f0 fall in Hz) */
@@ -882,8 +882,8 @@ const short                   ursula[SPDEF] =
 	10,								   /* NF (additional fixed number of samples in nopen) */
 	0,								   /* LA (laryngealization, in percent) */
 	95,								   /* HS (head size, in percent relative to normal for SEX) */
-	4450,							   /* F4 (frequency in Hz of cascade 4th formant = F4*100/HS) */
-	260,							   /* B4 (bandwidth in Hz of cascade 4th formant) */
+	4500,							   /* F4 (frequency in Hz of cascade 4th formant = F4*100/HS) */
+	230,							   /* B4 (bandwidth in Hz of cascade 4th formant) */
 	ZAPF,							   /* F5 (frequency in Hz of cascade 5th formant = F5*100/HS) */
 	ZAPB,							   /* B5 (bandwidth in Hz of cascaded 5th formant) */
 	4300,							   /* F7 (frequency in Hz of parallel 4th formant = F7) */
