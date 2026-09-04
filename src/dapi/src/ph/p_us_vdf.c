@@ -726,7 +726,7 @@ const short                   betty[SPDEF] =
 	69,								   /* G1 (gain of input to cascade 5th formant in dB) */
 	67,								   /* G2 (gain of input to cascade 4th formant in dB) */
 	52,								   /* G3 (gain of input to cascade 3rd formant in dB) */
-	64,								   /* G4 (gain of input to cascade 2nd formant in dB) */
+	60,								   /* G4 (gain of input to cascade 2nd formant in dB) */
 	75,								   /* LO (Loudness, gain input to cascade 1st formant in dB) */
 	75,								   /* FT (f0-dependent spectral tilt in % of max) */
 	0,								   /* BF (baseline f0 fall in Hz) */
@@ -768,7 +768,7 @@ const short                   harry[SPDEF] =
 	71,								   /* G1 (gain of input to cascade 5th formant in dB) */
 	61,								   /* G2 (gain of input to cascade 4th formant in dB) */
 	52,								   /* G3 (gain of input to cascade 3rd formant in dB) */
-	67,								   /* G4 (gain of input to cascade 2nd formant in dB) */
+	64,								   /* G4 (gain of input to cascade 2nd formant in dB) */
 	76,								   /* LO (Loudness, gain input to cascade 1st formant in dB) */
 	60,								   /* FT (f0-dependent spectral tilt in % of max) */
 	9,								   /* BF (baseline f0 fall in Hz) */

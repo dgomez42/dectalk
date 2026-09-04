@@ -1,0 +1,119 @@
+name: Build ROM Library
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-rom-library:
+    name: "${{ matrix.rom_label }}"
+    runs-on: windows-2022
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rom_label: "ROM_DTC03_Jan89"
+            rom_define: "VOICE_ROM_DTC_03_03JAN89"
+            vdf_define: "VDF_DTC_03_03JAN89"
+            description: "1989 DTC-03 hardware ROM"
+
+          - rom_label: "ROM_DECtalk41"
+            rom_define: "VOICE_ROM_DECTALK_41"
+            vdf_define: "VDF_DECTALK_41"
+            description: "DECtalk 4.1 ROM"
+
+          - rom_label: "ROM_DECtalk43"
+            rom_define: "VOICE_ROM_DECTALK_43"
+            vdf_define: "VDF_DECTALK_43"
+            description: "DECtalk 4.3 ROM"
+
+          - rom_label: "ROM_1996male_43female"
+            rom_define: "VOICE_ROM_DECTALK_1996M_43F"
+            vdf_define: "VDF_DECTALK_43"
+            description: "1996 male ROM with 4.3 female ROM"
+
+          - rom_label: "ROM_1996"
+            rom_define: "VOICE_ROM_1996"
+            vdf_define: "VDF_DECTALK_44"
+            description: "1996 ROM"
+
+          - rom_label: "ROM_1997"
+            rom_define: "VOICE_ROM_1997"
+            vdf_define: "VDF_BETA5"
+            description: "1997 ROM"
+
+          - rom_label: "ROM_current_499"
+            rom_define: "VOICE_ROM_BETA5"
+            vdf_define: "VDF_BETA5"
+            description: "Current 4.99 ROM (reference)"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Inject ROM and VDF defines into vcxproj
+        shell: python
+        run: |
+          import re
+
+          vcxproj_path = r'src\dapi\src\DECtalk API.vcxproj'
+          rom_define = '${{ matrix.rom_define }}'
+          vdf_define = '${{ matrix.vdf_define }}'
+
+          with open(vcxproj_path, 'r', encoding='utf-8') as f:
+              content = f.read()
+
+          # Add ROM and VDF defines to all PreprocessorDefinitions entries
+          def add_defines(match):
+              existing = match.group(1)
+              # Remove any existing VOICE_ROM_ or VDF_ defines first
+              cleaned = re.sub(r';?VOICE_ROM_\w+', '', existing)
+              cleaned = re.sub(r';?VDF_\w+', '', cleaned)
+              return f'<PreprocessorDefinitions>{cleaned};{rom_define};{vdf_define}</PreprocessorDefinitions>'
+
+          content = re.sub(
+              r'<PreprocessorDefinitions>(.*?)</PreprocessorDefinitions>',
+              add_defines,
+              content
+          )
+
+          with open(vcxproj_path, 'w', encoding='utf-8') as f:
+              f.write(content)
+
+          print(f'Injected {rom_define} and {vdf_define}')
+
+      - name: Build DECtalk (IA32 and AMD64)
+        shell: cmd
+        run: devops\vs2022\dt_buildall.bat
+
+      - name: Copy files to dist folder
+        shell: cmd
+        run: devops\vs2022\dt_copyfiles.bat
+
+      - name: Rename DLLs with ROM label
+        shell: python
+        run: |
+          import os, shutil, glob
+
+          label = '${{ matrix.rom_label }}'
+          dist = 'dist'
+
+          for dll in glob.glob(os.path.join(dist, '**', 'dectalk.dll'), recursive=True):
+              folder = os.path.dirname(dll)
+              arch = 'ia32' if 'ia32' in folder.lower() or 'win32' in folder.lower() else 'amd64'
+              new_name = os.path.join(dist, f'dectalk_{label}_{arch}.dll')
+              shutil.copy2(dll, new_name)
+              print(f'Copied {dll} -> {new_name}')
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "${{ matrix.rom_label }}"
+          path: "dist/dectalk_${{ matrix.rom_label }}_*.dll"
+          if-no-files-found: error
