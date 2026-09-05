@@ -80,6 +80,8 @@
 #include "p_us_rom_dtc03_mal_both.c"
 #elif defined(VOICE_ROM_41_MAL_BOTH)
 #include "p_us_rom_41_mal_both.c"
+#elif defined(VOICE_ROM_PC1_42C)
+#include "p_us_rom_pc1_42c.c"
 #elif defined(VOICE_ROM_MIXEDROM1)
 #include "p_us_rom_mixedrom1.c"
 #elif defined(VOICE_ROM_MIXEDROM2)
