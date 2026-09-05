@@ -1,9 +1,9 @@
 /*
  ***********************************************************************
  *
- *                           Copyright ©  
- *	  Copyright © 2000-2001 Force Computers, a Solectron Company. All rights reserved. 
- *    © Digital Equipment Corporation 1995-98. All rights reserved.
+ *                           Copyright ï¿½  
+ *	  Copyright ï¿½ 2000-2001 Force Computers, a Solectron Company. All rights reserved. 
+ *    ï¿½ Digital Equipment Corporation 1995-98. All rights reserved.
  *
  *    Restricted Rights: Use, duplication, or disclosure by the U.S.
  *    Government is subject to restrictions as set forth in subparagraph
@@ -277,7 +277,21 @@ LANGUAGE	VDEF_FILE	TUNING UP	VDEF_FILE	TUNING UP
 //#define VDF_DECTALKEXPRESS_43
 //#define VDF_DECTALK_44
 //#define VDF_DECTALK_41
+#ifndef VDF_BETA5
+#ifndef VDF_DTC_03_03JAN89
+#ifndef VDF_DECTALK_41
+#ifndef VDF_DECTALK_44
+#ifndef VDF_DECTALKEXPRESS_43
+#ifndef VDF_DECTALKEXPRESS_42CD
+#ifndef VDF_DECTALKEXPRESS_42
 #define VDF_DECTALK_43
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
 
 // Which voice rom to use
 // VOICE_ROM_BETA5 -> voice rom generated from 88_mal and 88_fem
@@ -293,7 +307,35 @@ LANGUAGE	VDEF_FILE	TUNING UP	VDEF_FILE	TUNING UP
 //#define VOICE_ROM_1996
 //#define VOICE_ROM_DECTALK_41
 //#define VOICE_ROM_DECTALK_43
+#ifndef VOICE_ROM_BETA5
+#ifndef VOICE_ROM_DTC_03_03JAN89
+#ifndef VOICE_ROM_1997
+#ifndef VOICE_ROM_1996
+#ifndef VOICE_ROM_DECTALK_41
+#ifndef VOICE_ROM_DECTALK_43
+#ifndef VOICE_ROM_DTC03_FEM_BOTH
+#ifndef VOICE_ROM_41_FEM_BOTH
+#ifndef VOICE_ROM_43_FEM_BOTH
+#ifndef VOICE_ROM_461_MAL_BOTH
+#ifndef VOICE_ROM_DTC03_MAL_BOTH
+#ifndef VOICE_ROM_41_MAL_BOTH
+#ifndef VOICE_ROM_DTU_USB
+#ifndef VOICE_ROM_CUSTOM_GA
 #define VOICE_ROM_DECTALK_1996M_43F
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
 
 #if defined(VOICE_ROM_1997) || defined(VOICE_ROM_1996) || defined(VOICE_ROM_DECTALK_41) || defined(VOICE_ROM_DECTALK_43) || defined(VOICE_ROM_DECTALK_1996M_43F) || defined(VOICE_ROM_DTC_03_03JAN89)
 // Decrease /s, z/ amplification in VOICE_ROM_1996/7
