@@ -1,10 +1,10 @@
  /* 
  ********************************************************************************************
  *
- *                           Copyright ï¿½
- *	  Copyright ï¿½ 2002 Fonix Corporation. All rights reserved.
- *	  Copyright ï¿½ 2000, 2001 Force Computers, Inc., a Solectron Company. All rights reserved.
- *    ï¿½ Digital Equipment Corporation 1996, 1997. All rights reserved.
+ *                           Copyright ©
+ *	  Copyright © 2002 Fonix Corporation. All rights reserved.
+ *	  Copyright © 2000, 2001 Force Computers, Inc., a Solectron Company. All rights reserved.
+ *    © Digital Equipment Corporation 1996, 1997. All rights reserved.
  *
  *    Restricted Rights: Use, duplication, or disclosure by the U.S.
  *    Government is subject to restrictions as set forth in subparagraph
@@ -68,18 +68,6 @@
 #include "p_us_rom_dectalk43.c"
 #elif defined(VOICE_ROM_DECTALK_1996M_43F)
 #include "p_us_rom_dectalk_1996m_43f.c"
-#elif defined(VOICE_ROM_DTC03_FEM_BOTH)
-#include "p_us_rom_dtc03_fem_both.c"
-#elif defined(VOICE_ROM_41_FEM_BOTH)
-#include "p_us_rom_41_fem_both.c"
-#elif defined(VOICE_ROM_43_FEM_BOTH)
-#include "p_us_rom_43_fem_both.c"
-#elif defined(VOICE_ROM_461_MAL_BOTH)
-#include "p_us_rom_461_mal_both.c"
-#elif defined(VOICE_ROM_DTC03_MAL_BOTH)
-#include "p_us_rom_dtc03_mal_both.c"
-#elif defined(VOICE_ROM_41_MAL_BOTH)
-#include "p_us_rom_41_mal_both.c"
 #elif defined(VOICE_ROM_CUSTOM_GA)
 #include "p_us_rom_custom_GA.c"
 #elif defined(VOICE_ROM_BETA5)

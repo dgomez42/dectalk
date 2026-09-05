@@ -35,36 +35,6 @@ jobs:
             vdf_define: "VDF_DECTALK_43"
             description: "1996 male ROM with 4.3 female ROM"
 
-          - rom_label: "ROM_DTC03_female_both"
-            rom_define: "VOICE_ROM_DTC03_FEM_BOTH"
-            vdf_define: "VDF_DECTALK_43"
-            description: "DTC-03 female formants in both vocal tracts"
-
-          - rom_label: "ROM_41_female_both"
-            rom_define: "VOICE_ROM_41_FEM_BOTH"
-            vdf_define: "VDF_DECTALK_41"
-            description: "4.1 female formants in both vocal tracts"
-
-          - rom_label: "ROM_43_female_both"
-            rom_define: "VOICE_ROM_43_FEM_BOTH"
-            vdf_define: "VDF_DECTALK_43"
-            description: "4.3 female formants in both vocal tracts"
-
-          - rom_label: "ROM_461_male_both"
-            rom_define: "VOICE_ROM_461_MAL_BOTH"
-            vdf_define: "VDF_DECTALK_43"
-            description: "4.61/4.62 male formants in both vocal tracts"
-
-          - rom_label: "ROM_DTC03_male_both"
-            rom_define: "VOICE_ROM_DTC03_MAL_BOTH"
-            vdf_define: "VDF_DTC_03_03JAN89"
-            description: "DTC-03 male formants in both vocal tracts"
-
-          - rom_label: "ROM_41_male_both"
-            rom_define: "VOICE_ROM_41_MAL_BOTH"
-            vdf_define: "VDF_DECTALK_41"
-            description: "4.1 male formants in both vocal tracts"
-
           - rom_label: "ROM_custom_GeneralAmerican"
             rom_define: "VOICE_ROM_CUSTOM_GA"
             vdf_define: "VDF_DECTALK_43"
@@ -73,7 +43,7 @@ jobs:
           - rom_label: "ROM_current_499"
             rom_define: "VOICE_ROM_BETA5"
             vdf_define: "VDF_BETA5"
-            description: "Current 4.99 ROM reference"
+            description: "Current 4.99 ROM (reference)"
 
     steps:
       - name: Checkout repository
@@ -86,21 +56,29 @@ jobs:
         shell: python
         run: |
           import re
+
           vcxproj_path = r'src\dapi\src\DECtalk API.vcxproj'
           rom_define = '${{ matrix.rom_define }}'
           vdf_define = '${{ matrix.vdf_define }}'
+
           with open(vcxproj_path, 'r', encoding='utf-8') as f:
               content = f.read()
+
           def add_defines(match):
               existing = match.group(1)
               cleaned = re.sub(r';?VOICE_ROM_\w+', '', existing)
               cleaned = re.sub(r';?VDF_\w+', '', cleaned)
               return f'<PreprocessorDefinitions>{cleaned};{rom_define};{vdf_define}</PreprocessorDefinitions>'
+
           content = re.sub(
               r'<PreprocessorDefinitions>(.*?)</PreprocessorDefinitions>',
-              add_defines, content)
+              add_defines,
+              content
+          )
+
           with open(vcxproj_path, 'w', encoding='utf-8') as f:
               f.write(content)
+
           print(f'Injected {rom_define} and {vdf_define}')
 
       - name: Build DECtalk (IA32 and AMD64)
@@ -115,8 +93,10 @@ jobs:
         shell: python
         run: |
           import os, shutil, glob
+
           label = '${{ matrix.rom_label }}'
           dist = 'dist'
+
           for dll in glob.glob(os.path.join(dist, '**', 'dectalk.dll'), recursive=True):
               folder = os.path.dirname(dll)
               arch = 'ia32' if 'ia32' in folder.lower() or 'win32' in folder.lower() else 'amd64'
