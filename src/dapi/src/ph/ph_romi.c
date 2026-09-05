@@ -80,6 +80,12 @@
 #include "p_us_rom_dtc03_mal_both.c"
 #elif defined(VOICE_ROM_41_MAL_BOTH)
 #include "p_us_rom_41_mal_both.c"
+#elif defined(VOICE_ROM_MIXEDROM1)
+#include "p_us_rom_mixedrom1.c"
+#elif defined(VOICE_ROM_MIXEDROM2)
+#include "p_us_rom_mixedrom2.c"
+#elif defined(VOICE_ROM_464)
+#include "p_us_rom_464.c"
 #elif defined(VOICE_ROM_DTU_USB)
 #include "p_us_rom_dtu_usb.c"
 #elif defined(VOICE_ROM_CUSTOM_GA)
